@@ -1,0 +1,161 @@
+﻿:root {
+	--tileSize: 75px;
+	--boardSize: 15px;
+}
+.endscreen {
+	background: #FFF;
+	padding: 20px;
+	text-align: center;
+	font-size: 40px;
+	display: none;
+	color: red;
+	font-family: 'Roboto Condensed', sans-serif;
+}
+.endscreen.show {
+	display: block;
+}
+.endscreen span {
+	color: green;
+}
+.col-left {
+	display: inline-block;
+	width: 50%;
+}		
+.col-right {
+	display: inline-block;
+	width:45%;
+	text-align: right;
+}		
+.board {
+	background: #e2e2e2;
+	position: relative;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	margin: 25px auto;
+	border: 12px solid #337AB7;
+	box-sizing: content-box;
+	box-shadow: 0 4px 12px rgba(0,0,0,0.4), 0 16px 20px rgba(0,0,0,0.25);
+}
+/*Ячейки доски*/
+.board .tile {
+	background: #fff;
+	width: var(--tileSize);
+	height: var(--tileSize);
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: calc(var(--tileSize) * 0.8);
+	cursor: pointer;
+	user-select: none;
+	transition: background .2s ease;
+	font-family: Tahoma, sans-serif;
+	/*Линии разграничения ячеек*/
+	box-shadow: inset 0 2px 0 0 #fcfcfc, inset 2px 0 0 0 #fcfcfc, inset 0 -2px 0 0 #c9c9c9, inset -2px 0 0 0 #c9c9c9;
+}
+/*Ячейка при наведении на неё*/
+.board .tile:hover:not(.tile--checked) {
+	background: #aaa;
+}
+/*Уже открытая ячейка*/
+.board .tile--checked {
+	background: #d5d5d5;
+	box-shadow: inset 0 1px 0 0 #c9c9c9, inset 1px 0 0 0 #c9c9c9, inset 0 -1px 0 0 #c9c9c9, inset -1px 0 0 0 #c9c9c9;
+}
+.board .tile--checked.tile--bomb:before, .board .tile--checked.tile--bomb:after {
+	opacity: 1;
+}
+.board .tile--checked:hover {
+	cursor: default;
+}
+.board .tile--bomb {
+	font-size: calc(var(--tileSize) * .45); 
+}
+.board .tile--flagged {
+	font-size: calc(var(--tileSize) * .45);
+}
+/*Кнопка новой игры*/
+.minesweeper-btn {
+    display: inline-block;
+    padding: 0 40px;
+    height: 50px;
+	margin-bottom: 20px;
+	text-align: center;
+	font-family: 'Roboto Condensed', sans-serif;
+    background-color: #337AB7;
+    border-radius: 10%;
+    font-size: 24px;
+    font-weight: bold;
+    color: #fff;
+    text-transform: uppercase;
+    line-height: 50px;
+    transition: all 0.4s;
+    outline: none !important;
+    border: none;    
+	text-decoration: none;
+}
+/*При наведении на неё*/
+.minesweeper-btn:hover {
+    background-color: #333333;
+    color: #fff;	
+}
+
+.settings fieldset {
+	border: none;
+}
+
+.settings input[type=radio]{
+	display:none;
+}
+/*Панель настроек*/
+.settings label {
+	margin: 15px 0;
+	display: inline-block;
+	position: relative;
+	cursor:pointer;
+	font-size: 16px;
+	line-height:20px;
+	transition: .4s all;
+	color:#337AB7;
+	font-weight: bold!important;		
+}
+.settings input[type=radio] + label  {
+	margin: 15px 15px 15px 30px;
+}
+.settings input[type=radio] + label:hover{
+	color:#000;
+}
+/*Радио кнопки настроек*/
+.settings input[type=radio] + label:before {
+	position: absolute;
+	content: '';
+	width: 16px;
+	height: 16px;
+	left:-25px;
+	border: 2px solid #337AB7;
+	border-radius: 2px;
+	transition: background .4s;
+}
+.settings input[type=radio] + label:before {
+	border-radius: 25%;
+}
+/*Цвет нажатой радиокнопки*/
+.settings input[type=radio]:checked + label:before {
+	background: #337AB7;
+}		
+@media screen and (max-width: 767px) {
+	.board-wrap {
+		transform: scale(0.8);
+		width: calc(100% + 160px);
+		left: -80px;
+		position: relative;
+	}
+}
+@media screen and (max-width: 520px) {
+	.board-wrap {
+		transform: scale(0.5);
+		width: calc(100% + 360px);
+		left: -180px;
+	}
+}	
