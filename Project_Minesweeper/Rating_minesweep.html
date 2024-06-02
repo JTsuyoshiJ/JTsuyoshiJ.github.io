@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Рейтинг Игроков Minesweeper</title>
+    <link href="css/Rating_css.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container"></div>
+    <h1>Рейтинг Игроков Minesweeper</h1>
+    <div class="cent">
+        <button id="light-theme-btn" class="theme-btn">Светлая тема</button>
+        <button id="dark-theme-btn" class="theme-btn">Темная тема</button>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Время игры</th>
+                <th>Сложность</th>
+                <th>Размер поля</th>
+                <th>Результат</th>
+            </tr>
+        </thead>
+        <tbody id="ratingTableBody">
+            <!-- Результаты игр будут добавляться сюда -->
+        </tbody>
+    </table>
+    </div>
+    <script src="js/theme.js" type="text/javascript"></script>
+    <script src="js/Rating_mine.js" type="text/javascript"></script>
+</body>
+</html>

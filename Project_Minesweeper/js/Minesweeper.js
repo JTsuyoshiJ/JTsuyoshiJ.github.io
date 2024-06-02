@@ -1,9 +1,8 @@
 ﻿document.addEventListener("DOMContentLoaded", () => {
     console.clear();
 
-    /*Стандарт уровня сложности "Средний"*/
     let size = 10;
-    let bombFrequency = 0.24;
+    let bombFrequency = 0.21;
     let tileSize = 75;
 
     const board = document.querySelectorAll('.board')[0];
@@ -14,12 +13,11 @@
     const endscreen = document.querySelectorAll('.endscreen')[0];
 
     const boardSizeBtn = document.getElementById('boardSize');
-    const tileSizeBtn = document.getElementById('tileSize');
     const difficultyBtns = document.querySelectorAll('.difficulty');
 
     let bombs = [];
     let numbers = [];
-    let numberColors = ['#3498db', '#2ecc71', '#e74c3c', '#9b59b6', '#f1c40f', '#1abc9c', '#34495e', '#7f8c8d',];
+    let numberColors = ['#3498db', '#288d00', '#e74c3c', '#9b59b6', '#836a07', '#0b725d', '#34495e', '#a5dce0'];
     let endscreenContent = {win: '<span> Зона разминирована! </span>', loose: 'Вы взорвались на мине.'};
 
     let gameOver = false;
@@ -34,7 +32,7 @@
         const mins = Math.floor((seconds % 3600) / 60);
         const secs = seconds % 60;
         return `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-    }
+    };
 
     const startTimer = () => {
         if (!timerRunning) {
@@ -44,19 +42,25 @@
                 document.getElementById('timer').innerText = `Время: ${formatTime(seconds)}`;
             }, 1000);
         }
-    }
+    };
 
     const stopTimer = () => {
         clearInterval(timer);
         timerRunning = false;
-    }
+    };
 
     const resetTimer = () => {
         clearInterval(timer);
         seconds = 0;
         document.getElementById('timer').innerText = `Время: ${formatTime(seconds)}`;
         timerRunning = false;
-    }
+    };
+
+    const saveGameResult = (time, difficulty, result) => {
+        let gameResults = JSON.parse(localStorage.getItem('gameResults')) || [];
+        gameResults.push({time, difficulty, size, result});
+        localStorage.setItem('gameResults', JSON.stringify(gameResults));
+    };      
 
     const clear = () => {
         gameOver = false;
@@ -69,9 +73,9 @@
         });
         resetTimer();
         setup();
-    }
+    };
 
-    /*Расстановка и обработка доски, случайная выборка мин и чисел*/
+    /*Расстановка и обработка доски*/
     const setup = () => {
         for (let i = 0; i < Math.pow(size, 2); i++) {
             const tile = document.createElement('div');
@@ -114,7 +118,7 @@
             tile.oncontextmenu = function(e) {
                 e.preventDefault();
                 flag(tile);
-            }
+            };
 
             tile.addEventListener('click', function(e) {
                 clickTile(tile);
@@ -128,7 +132,7 @@
             if (!dataNum) dataNum = 0;
             tile.setAttribute('data-num', dataNum + 1);
         });
-    }
+    };
 
     const flag = (tile) => {
         if (gameOver) return;
@@ -141,7 +145,7 @@
                 tile.classList.remove('tile--flagged');
             }
         }
-    }
+    };
 
     const clickTile = (tile) => {
         if (gameOver) return;
@@ -150,7 +154,7 @@
         if (bombs.includes(coordinate)) {
             endGame(tile);
         } else {
-            if (!timerRunning) startTimer();  // Начало отсчёта при первом же нажатии
+            if (!timerRunning) startTimer(); //Начало отсчёта таймера после нажатия
             let num = tile.getAttribute('data-num');
             if (num != null) {
                 tile.classList.add('tile--checked');
@@ -164,9 +168,8 @@
             checkTile(tile, coordinate);
         }
         tile.classList.add('tile--checked');
-    }
+    };
 
-    /*Раскрытие ближайших незаминированных зон*/
     const checkTile = (tile, coordinate) => {
         console.log('Зона раскрыта');
         let coords = coordinate.split(',');
@@ -209,14 +212,15 @@
                 clickTile(targetSW, `${x-1},${y+1}`);
             }
         }, 100);
-    }
+    };
 
     const endGame = (tile) => {
         console.log('Бум! Игра закончена.');
         endscreen.innerHTML = endscreenContent.loose;
         endscreen.classList.add('show');
         gameOver = true;
-        stopTimer();  // Stop timer on game over
+        stopTimer();  // Остановка таймера
+        saveGameResult(formatTime(seconds), bombFrequency, 'Проигрыш');
         tiles.forEach(tile => {
             let coordinate = tile.getAttribute('data-tile');
             if (bombs.includes(coordinate)) {
@@ -225,7 +229,7 @@
                 tile.innerHTML = 'Mine';
             }
         });
-    }
+    };
 
     const checkVictory = () => {
         let win = true;
@@ -237,25 +241,25 @@
             endscreen.innerHTML = endscreenContent.win;
             endscreen.classList.add('show');
             gameOver = true;
-            stopTimer();  // Остановка таймера при победе
+            stopTimer();  // Остановка таймера
+            saveGameResult(formatTime(seconds), bombFrequency, 'Победа');
         }
-    }
+    };
 
     setup();
 
-    /* Новая игра */
     restartBtn.addEventListener('click', function(e) {
         e.preventDefault();
         clear();
     });
 
-    // Настройки
     boardSizeBtn.addEventListener('change', function(e) {
         console.log(this.value);
         size = this.value;
-        tileSize = 90 - (size * 2); // Уменьшение размера клетки, если доска становится больше
+        tileSize = 90 - (size * 2); //Адаптивный размер клетки, зависимо от количества клеток на доске
         clear();
     });
+
     difficultyBtns.forEach(btn => {
         btn.addEventListener('click', function() {
             console.log(this.value);

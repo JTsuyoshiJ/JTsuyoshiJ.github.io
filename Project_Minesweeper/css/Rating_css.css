@@ -1,0 +1,85 @@
+﻿:root {
+    --bckg-board-c: #e2e2e2;
+    --bckg-board-tile: #fff;
+    --bckg-tile-hover: #aaa;
+    --bckg-tile-chkd: #d5d5d5;
+    --clr: #fff;
+    --btn-hover: #333333;
+    --clr2: #000;
+    --radio-btn: #337AB7;
+    --radio-btn-ckd: #337AB7;
+    --table-bg-color: #f4f4f4;
+    background-color: #fff;
+}
+
+[data-theme="dark"] {
+    --bckg-board-c: #121212;
+    --bckg-board-tile: #9e9d9d;
+    --bckg-tile-hover: #7c7c7c;
+    --bckg-tile-chkd: #c2c2c2;
+    --clr: #000;
+    --btn-hover: #afafaf;
+    --clr2: #fff;
+    --radio-btn: #89c7fd;
+    --radio-btn-ckd: #89c7fd;
+    --table-bg-color: #3b3b3b;
+    background-color: #121212;
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+table, th, td {
+    border: 1px solid var(--radio-btn);
+}
+th, td {
+    padding: 8px;
+    text-align: center;
+    background-color: var(--table-bg-color);
+    color: var(--clr2)
+}
+th {
+    background-color: var(--table-bg-color);
+}
+
+.container {
+    grid-template-rows: 1fr 4fr 4fr 1fr;
+    grid-template-columns: 2fr 4fr 2fr;
+}
+
+.cent {
+	text-align: center;
+}
+.theme-btn, .minesweeper-btn {
+    display: inline-block;
+    padding: 0 40px;
+    height: 50px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-family: 'Roboto Condensed', sans-serif;
+    background-color: var(--radio-btn);
+    border-radius: 10%;
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--clr);
+    text-transform: uppercase;
+    line-height: 50px;
+    transition: all 0.4s;
+    outline: none !important;
+    border: none;
+    text-decoration: none;
+}
+
+/* Эффект наведения */
+.theme-btn:hover, .minesweeper-btn:hover {
+    background-color: var(--btn-hover);
+    color: var(--clr);
+}
+h1,h2,h3,h4{
+    color: var(--clr2)
+}

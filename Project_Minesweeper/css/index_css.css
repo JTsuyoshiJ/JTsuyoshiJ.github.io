@@ -1,0 +1,71 @@
+﻿:root {
+    --btn-game: #4CAF50;
+    --btn-game-hover: #45a049;
+    --btn-rating: #008CBA;
+    --btn-rating-hover: #007bb5;
+    --clr: #fff;
+    --btn-hover: #333333;
+    --clr2: #000;
+    --radio-btn: #337AB7;
+    --radio-btn-ckd: #337AB7;
+    background-color: #fff;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    justify-items: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+}
+h1 {
+    font-size: 3em;
+    margin: 0;
+}
+.content {
+    text-align: center;
+    max-width: 600px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.buttons {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    gap: 20px;
+}
+.button {
+    padding: 15px 30px;
+    font-size: 1.2em;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    text-decoration: none;
+    color: var(--clr);
+    text-align: center;
+}
+.button--game {
+    background-color: var(--btn-game);
+}
+.button--game:hover {
+    background-color: var(--btn-game-hover);
+}
+.button--rating {
+    background-color: var(--btn-rating);
+}
+.button--rating:hover {
+    background-color: var(--btn-rating-hover)
+}
+.instructions h2 {
+    margin-top: 0;
+}
+.instructions ol {
+    text-align: left;
+}
