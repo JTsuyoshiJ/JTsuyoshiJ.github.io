@@ -11,9 +11,8 @@
     let boardSize;
 
     const restartBtn = document.querySelectorAll('.minesweeper-btn')[0];
-    const endscreen = document.querySelectorAll('.endscreen')[0]
+    const endscreen = document.querySelectorAll('.endscreen')[0];
 
-    // РќР°СЃС‚СЂРѕР№РєРё
     const boardSizeBtn = document.getElementById('boardSize');
     const tileSizeBtn = document.getElementById('tileSize');
     const difficultyBtns = document.querySelectorAll('.difficulty');
@@ -25,8 +24,41 @@
 
     let gameOver = false;
 
-    const clear = () => {
+    // Таймер
+    let timer;
+    let seconds = 0;
+    let timerRunning = false;
 
+    const formatTime = (seconds) => {
+        const hrs = Math.floor(seconds / 3600);
+        const mins = Math.floor((seconds % 3600) / 60);
+        const secs = seconds % 60;
+        return `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    }
+
+    const startTimer = () => {
+        if (!timerRunning) {
+            timerRunning = true;
+            timer = setInterval(() => {
+                seconds++;
+                document.getElementById('timer').innerText = `Время: ${formatTime(seconds)}`;
+            }, 1000);
+        }
+    }
+
+    const stopTimer = () => {
+        clearInterval(timer);
+        timerRunning = false;
+    }
+
+    const resetTimer = () => {
+        clearInterval(timer);
+        seconds = 0;
+        document.getElementById('timer').innerText = `Время: ${formatTime(seconds)}`;
+        timerRunning = false;
+    }
+
+    const clear = () => {
         gameOver = false;
         bombs = [];
         numbers = [];
@@ -35,10 +67,11 @@
         tiles.forEach(tile => {
             tile.remove();
         });
-
+        resetTimer();
         setup();
     }
-/*Расстановка и обработка доски, случайная выборка мин и чисел*/
+
+    /*Расстановка и обработка доски, случайная выборка мин и чисел*/
     const setup = () => {
         for (let i = 0; i < Math.pow(size, 2); i++) {
             const tile = document.createElement('div');
@@ -97,20 +130,18 @@
         });
     }
 
-
     const flag = (tile) => {
         if (gameOver) return;
         if (!tile.classList.contains('tile--checked')) {
             if (!tile.classList.contains('tile--flagged')) {
                 tile.innerHTML = 'flag';
                 tile.classList.add('tile--flagged');
-                } else {
+            } else {
                 tile.innerHTML = '';
                 tile.classList.remove('tile--flagged');
             }
         }
     }
-
 
     const clickTile = (tile) => {
         if (gameOver) return;
@@ -118,8 +149,8 @@
         let coordinate = tile.getAttribute('data-tile');
         if (bombs.includes(coordinate)) {
             endGame(tile);
-            } else {
-
+        } else {
+            if (!timerRunning) startTimer();  // Начало отсчёта при первом же нажатии
             let num = tile.getAttribute('data-num');
             if (num != null) {
                 tile.classList.add('tile--checked');
@@ -130,16 +161,13 @@
                 }, 100);
                 return;
             }
-
             checkTile(tile, coordinate);
         }
         tile.classList.add('tile--checked');
     }
 
-
-/*Раскрытие ближайших незаминированных зон*/
+    /*Раскрытие ближайших незаминированных зон*/
     const checkTile = (tile, coordinate) => {
-
         console.log('Зона раскрыта');
         let coords = coordinate.split(',');
         let x = parseInt(coords[0]);
@@ -188,6 +216,7 @@
         endscreen.innerHTML = endscreenContent.loose;
         endscreen.classList.add('show');
         gameOver = true;
+        stopTimer();  // Stop timer on game over
         tiles.forEach(tile => {
             let coordinate = tile.getAttribute('data-tile');
             if (bombs.includes(coordinate)) {
@@ -208,6 +237,7 @@
             endscreen.innerHTML = endscreenContent.win;
             endscreen.classList.add('show');
             gameOver = true;
+            stopTimer();  // Остановка таймера при победе
         }
     }
 

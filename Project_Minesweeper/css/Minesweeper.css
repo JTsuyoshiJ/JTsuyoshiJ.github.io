@@ -1,161 +1,218 @@
 ﻿:root {
-	--tileSize: 75px;
-	--boardSize: 15px;
+    --tileSize: 75px;
+    --boardSize: 15px;
+    --win-scr-color: rgb(61, 165, 61);
+    --lose-scr-color: rgb(165, 41, 41);
+    --end-scr-bg: #fff;
+    --bckg-board-c: #e2e2e2;
+    --bckg-board-tile: #fff;
+    --bckg-tile-hover: #aaa;
+    --bckg-tile-chkd: #d5d5d5;
+    --clr: #fff;
+    --btn-hover: #333333;
+    --clr2: #000;
+    --radio-btn: #337AB7;
+    --radio-btn-ckd: #337AB7;
+    background-color: #fff;
 }
-.endscreen {
-	background: #FFF;
-	padding: 20px;
+
+[data-theme="dark"] {
+    --tileSize: 75px;
+    --boardSize: 15px;
+    --win-scr-color: rgb(165, 247, 165);
+    --lose-scr-color: rgb(247, 165, 165);
+    --end-scr-bg: #121212;
+    --bckg-board-c: #121212;
+    --bckg-board-tile: #9e9d9d;
+    --bckg-tile-hover: #7c7c7c;
+    --bckg-tile-chkd: #c2c2c2;
+    --clr: #000;
+    --btn-hover: #afafaf;
+    --clr2: #fff;
+    --radio-btn: #89c7fd;
+    --radio-btn-ckd: #89c7fd;
+    background-color: #121212;
+}
+
+.container {
+    grid-template-rows: 1fr 4fr 4fr 1fr;
+    grid-template-columns: 2fr 4fr 2fr;
+}
+
+.cent {
 	text-align: center;
-	font-size: 40px;
-	display: none;
-	color: red;
-	font-family: 'Roboto Condensed', sans-serif;
 }
-.endscreen.show {
-	display: block;
-}
-.endscreen span {
-	color: green;
-}
-.col-left {
-	display: inline-block;
-	width: 50%;
-}		
-.col-right {
-	display: inline-block;
-	width:45%;
-	text-align: right;
-}		
-.board {
-	background: #e2e2e2;
-	position: relative;
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-	margin: 25px auto;
-	border: 12px solid #337AB7;
-	box-sizing: content-box;
-	box-shadow: 0 4px 12px rgba(0,0,0,0.4), 0 16px 20px rgba(0,0,0,0.25);
-}
-/*Ячейки доски*/
-.board .tile {
-	background: #fff;
-	width: var(--tileSize);
-	height: var(--tileSize);
-	position: relative;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	font-size: calc(var(--tileSize) * 0.8);
-	cursor: pointer;
-	user-select: none;
-	transition: background .2s ease;
-	font-family: Tahoma, sans-serif;
-	/*Линии разграничения ячеек*/
-	box-shadow: inset 0 2px 0 0 #fcfcfc, inset 2px 0 0 0 #fcfcfc, inset 0 -2px 0 0 #c9c9c9, inset -2px 0 0 0 #c9c9c9;
-}
-/*Ячейка при наведении на неё*/
-.board .tile:hover:not(.tile--checked) {
-	background: #aaa;
-}
-/*Уже открытая ячейка*/
-.board .tile--checked {
-	background: #d5d5d5;
-	box-shadow: inset 0 1px 0 0 #c9c9c9, inset 1px 0 0 0 #c9c9c9, inset 0 -1px 0 0 #c9c9c9, inset -1px 0 0 0 #c9c9c9;
-}
-.board .tile--checked.tile--bomb:before, .board .tile--checked.tile--bomb:after {
-	opacity: 1;
-}
-.board .tile--checked:hover {
-	cursor: default;
-}
-.board .tile--bomb {
-	font-size: calc(var(--tileSize) * .45); 
-}
-.board .tile--flagged {
-	font-size: calc(var(--tileSize) * .45);
-}
-/*Кнопка новой игры*/
-.minesweeper-btn {
+
+.theme-btn, .minesweeper-btn {
     display: inline-block;
     padding: 0 40px;
     height: 50px;
-	margin-bottom: 20px;
-	text-align: center;
-	font-family: 'Roboto Condensed', sans-serif;
-    background-color: #337AB7;
+    margin-bottom: 20px;
+    text-align: center;
+    font-family: 'Roboto Condensed', sans-serif;
+    background-color: var(--radio-btn);
     border-radius: 10%;
     font-size: 24px;
     font-weight: bold;
-    color: #fff;
+    color: var(--clr);
     text-transform: uppercase;
     line-height: 50px;
     transition: all 0.4s;
     outline: none !important;
-    border: none;    
-	text-decoration: none;
+    border: none;
+    text-decoration: none;
 }
-/*При наведении на неё*/
-.minesweeper-btn:hover {
-    background-color: #333333;
-    color: #fff;	
+
+.theme-btn:hover, .minesweeper-btn:hover {
+    background-color: var(--btn-hover);
+    color: var(--clr);
+}
+
+.endscreen {
+    background: var(--end-scr-bg);
+    padding: 20px;
+    text-align: center;
+    font-size: 40px;
+    display: none;
+    color: var(--lose-scr-color);
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+.endscreen.show {
+    display: block;
+}
+
+.endscreen span {
+    color: var(--win-scr-color);
+}
+
+.col-left {
+    grid-row: 1 / 2;
+    grid-column: 1 / 4;
+    display: grid;
+    justify-content: space-around;
+}
+
+.board {
+    background: var(--bckg-board-c);
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: 25px auto;
+    border: 12px solid var(--radio-btn);
+    box-sizing: content-box;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4), 0 16px 20px rgba(0,0,0,0.25);
+}
+
+/*Ячейки доски*/
+.board .tile {
+    background: var(--bckg-board-tile);
+    width: var(--tileSize);
+    height: var(--tileSize);
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: calc(var(--tileSize) * 0.8);
+    cursor: pointer;
+    user-select: none;
+    transition: background .2s ease;
+    font-family: Tahoma, sans-serif;
+    /*Линии разграничения ячеек*/
+    box-shadow: inset 0 2px 0 0 #fcfcfc, inset 2px 0 0 0 #fcfcfc, inset 0 -2px 0 0 #c9c9c9, inset -2px 0 0 0 #c9c9c9;
+}
+
+/*Ячейка при наведении на неё*/
+.board .tile:hover:not(.tile--checked) {
+    background: var(--bckg-tile-hover);
+}
+
+/*Уже открытая ячейка*/
+.board .tile--checked {
+    background: var(--bckg-tile-chkd);
+    box-shadow: inset 0 1px 0 0 #c9c9c9, inset 1px 0 0 0 #c9c9c9, inset 0 -1px 0 0 #c9c9c9, inset -1px 0 0 0 #c9c9c9;
+}
+
+.board .tile--checked.tile--bomb:before, .board .tile--checked.tile--bomb:after {
+    opacity: 1;
+}
+
+.board .tile--checked:hover {
+    cursor: default;
+}
+
+.board .tile--bomb {
+    font-size: calc(var(--tileSize) * .45);
+}
+
+.board .tile--flagged {
+    font-size: calc(var(--tileSize) * .45);
 }
 
 .settings fieldset {
-	border: none;
+    border: none;
 }
 
-.settings input[type=radio]{
-	display:none;
+.settings input[type=radio] {
+    display: none;
 }
+
 /*Панель настроек*/
 .settings label {
-	margin: 15px 0;
-	display: inline-block;
-	position: relative;
-	cursor:pointer;
-	font-size: 16px;
-	line-height:20px;
-	transition: .4s all;
-	color:#337AB7;
-	font-weight: bold!important;		
+    margin: 15px 0;
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 20px;
+    transition: .4s all;
+    color: var(--radio-btn);
+    font-weight: bold !important;
 }
-.settings input[type=radio] + label  {
-	margin: 15px 15px 15px 30px;
+
+.settings input[type=radio] + label {
+    margin: 15px 15px 15px 30px;
 }
-.settings input[type=radio] + label:hover{
-	color:#000;
+
+.settings input[type=radio] + label:hover {
+    color: var(--clr2);
 }
+
 /*Радио кнопки настроек*/
 .settings input[type=radio] + label:before {
-	position: absolute;
-	content: '';
-	width: 16px;
-	height: 16px;
-	left:-25px;
-	border: 2px solid #337AB7;
-	border-radius: 2px;
-	transition: background .4s;
+    position: absolute;
+    content: '';
+    width: 16px;
+    height: 16px;
+    left: -25px;
+    border: 2px solid var(--radio-btn);
+    border-radius: 2px;
+    transition: background .4s;
 }
+
 .settings input[type=radio] + label:before {
-	border-radius: 25%;
+    border-radius: 25%;
 }
+
 /*Цвет нажатой радиокнопки*/
 .settings input[type=radio]:checked + label:before {
-	background: #337AB7;
-}		
-@media screen and (max-width: 767px) {
-	.board-wrap {
-		transform: scale(0.8);
-		width: calc(100% + 160px);
-		left: -80px;
-		position: relative;
-	}
+    background: var(--radio-btn-ckd);
 }
+
+@media screen and (max-width: 767px) {
+    .board-wrap {
+        transform: scale(0.8);
+        width: calc(100% + 160px);
+        left: -80px;
+        position: relative;
+    }
+}
+
 @media screen and (max-width: 520px) {
-	.board-wrap {
-		transform: scale(0.5);
-		width: calc(100% + 360px);
-		left: -180px;
-	}
-}	
+    .board-wrap {
+        transform: scale(0.5);
+        width: calc(100% + 360px);
+        left: -180px;
+    }
+}
