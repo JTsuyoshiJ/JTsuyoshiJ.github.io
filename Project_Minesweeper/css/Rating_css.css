@@ -6,8 +6,8 @@
     --clr: #fff;
     --btn-hover: #333333;
     --clr2: #000;
-    --radio-btn: #337AB7;
-    --radio-btn-ckd: #337AB7;
+    --radio-btn: #1D4567;
+    --radio-btn-ckd: #1D4567;
     --table-bg-color: #f4f4f4;
     background-color: #fff;
 }
@@ -55,7 +55,7 @@ th {
 .cent {
 	text-align: center;
 }
-.theme-btn, .minesweeper-btn {
+.mainswitch {
     display: inline-block;
     padding: 0 40px;
     height: 50px;
@@ -75,11 +75,30 @@ th {
     text-decoration: none;
 }
 
-/* Эффект наведения */
-.theme-btn:hover, .minesweeper-btn:hover {
+.theme-btn {
+    display: none;
+}
+
+.mainswitch:hover {
     background-color: var(--btn-hover);
     color: var(--clr);
 }
 h1,h2,h3,h4{
     color: var(--clr2)
+}
+
+@media (max-width: 650px) {
+    h1 {
+        font-size: 1.5em; 
+    }
+    .content {
+        padding: 10px; 
+    }
+    .theme-btn {
+        padding: 10px 20px; 
+        height: 10%; 
+    }
+    .buttons {
+        gap: 10px; 
+    }
 }

@@ -11,16 +11,17 @@
     --clr: #fff;
     --btn-hover: #333333;
     --clr2: #000;
-    --radio-btn: #337AB7;
-    --radio-btn-ckd: #337AB7;
+    --radio-btn: #1D4567;
+    --radio-btn-ckd: #1D4567;
+    --timer-col: #1D4567;
     background-color: #fff;
 }
 
 [data-theme="dark"] {
     --tileSize: 75px;
     --boardSize: 15px;
-    --win-scr-color: rgb(165, 247, 165);
-    --lose-scr-color: rgb(247, 165, 165);
+    --win-scr-color: #a5f7a5;
+    --lose-scr-color: #f7a5a5;
     --end-scr-bg: #121212;
     --bckg-board-c: #121212;
     --bckg-board-tile: #9e9d9d;
@@ -31,6 +32,7 @@
     --clr2: #fff;
     --radio-btn: #89c7fd;
     --radio-btn-ckd: #89c7fd;
+    --timer-col: #89c7fd;
     background-color: #121212;
 }
 
@@ -43,7 +45,18 @@
 	text-align: center;
 }
 
-.theme-btn, .minesweeper-btn {
+#timer {
+    color: var(--timer-col);
+}
+
+.tile img {
+    width: 70%;
+    height: 70%; 
+    display: block;
+    margin: auto;
+}
+
+.minesweeper-btn, .mainswitch {
     display: inline-block;
     padding: 0 40px;
     height: 50px;
@@ -62,8 +75,10 @@
     border: none;
     text-decoration: none;
 }
-
-.theme-btn:hover, .minesweeper-btn:hover {
+.theme-btn {
+    display: none;
+}
+.mainswitch:hover, .minesweeper-btn:hover {
     background-color: var(--btn-hover);
     color: var(--clr);
 }
@@ -194,7 +209,6 @@
 .settings input[type=radio] + label:before {
     border-radius: 25%;
 }
-
 /*Цвет нажатой радиокнопки*/
 .settings input[type=radio]:checked + label:before {
     background: var(--radio-btn-ckd);

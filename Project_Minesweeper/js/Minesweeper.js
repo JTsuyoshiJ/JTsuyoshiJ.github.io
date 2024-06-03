@@ -2,7 +2,7 @@
     console.clear();
 
     let size = 10;
-    let bombFrequency = 0.21;
+    let bombFrequency = 0.17;
     let tileSize = 75;
 
     const board = document.querySelectorAll('.board')[0];
@@ -138,7 +138,7 @@
         if (gameOver) return;
         if (!tile.classList.contains('tile--checked')) {
             if (!tile.classList.contains('tile--flagged')) {
-                tile.innerHTML = 'flag';
+                tile.innerHTML = '<img src = "images/flag.png">';
                 tile.classList.add('tile--flagged');
             } else {
                 tile.innerHTML = '';
@@ -226,7 +226,7 @@
             if (bombs.includes(coordinate)) {
                 tile.classList.remove('tile--flagged');
                 tile.classList.add('tile--checked', 'tile--bomb');
-                tile.innerHTML = 'Mine';
+                tile.innerHTML = '<img src = "images/mine.png">';
             }
         });
     };
