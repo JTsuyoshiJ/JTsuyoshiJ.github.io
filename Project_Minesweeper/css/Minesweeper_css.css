@@ -75,9 +75,11 @@
     border: none;
     text-decoration: none;
 }
+
 .theme-btn {
     display: none;
 }
+
 .mainswitch:hover, .minesweeper-btn:hover {
     background-color: var(--btn-hover);
     color: var(--clr);
