@@ -1,8 +1,8 @@
 ﻿:root {
-    --btn-game: #4CAF50;
-    --btn-game-hover: #45a049;
+    --btn-game: #245526;
+    --btn-game-hover: #1d5320;
     --btn-rating: #1D4567;
-    --btn-rating-hover: #007bb5;
+    --btn-rating-hover: #2c5c72;
     --clr: #fff;
     --btn-hover: #333333;
     --clr2: #000;
@@ -38,7 +38,7 @@ h1 {
 }
 
 .button--light-theme, .button--dark-theme {
-    background-color: #666;
+    background-color: #333;
     color: #fff;
     padding: 10px 20px;
     font-size: 1em;
@@ -51,7 +51,7 @@ h1 {
 }
 
 .button--light-theme:hover, .button--dark-theme:hover {
-    background-color: #555;
+    background-color: #444;
 }
 
 .content {
@@ -105,16 +105,6 @@ h1 {
 
 .instructions ol {
     text-align: left;
-}
-
-/* Тёмная тема */
-body.dark-theme {
-    --bg-color: #333;
-    --text-color: #fff;
-}
-
-body.dark-theme .content {
-    background-color: #444;
 }
 
 @media (max-width: 650px) {

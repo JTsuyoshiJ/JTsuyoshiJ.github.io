@@ -1,8 +1,8 @@
 ﻿:root {
     --tileSize: 75px;
     --boardSize: 15px;
-    --win-scr-color: rgb(61, 165, 61);
-    --lose-scr-color: rgb(165, 41, 41);
+    --win-scr-color: #1b4b1b;
+    --lose-scr-color: #661919;
     --end-scr-bg: #fff;
     --bckg-board-c: #e2e2e2;
     --bckg-board-tile: #fff;
